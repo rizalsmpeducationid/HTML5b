@@ -1,31 +1,31 @@
 
-/* For testing the performance of any block of code. It averages every 100 runs and prints to the console. To use, simply place the following around the code block you'd like to test:
+
 performanceTest(()=>{
 }); */
-// let performanceTestTimes = [];
-// function performanceTest(action) {
-// 	let performanceTestValue = performance.now();
-// 	action();
-// 	performanceTestTimes.push(performance.now() - performanceTestValue);
-// 	if (performanceTestTimes.length >= 100) {
-// 		console.log(performanceTestTimes.reduce((a, b) => a + b) / performanceTestTimes.length);
-// 		performanceTestTimes = [];
-// 	}
-// }
+ let performanceTestTimes = [];
+ function performanceTest(action) {
+ 	let performanceTestValue = performance.now();
+ 	action();
+ 	performanceTestTimes.push(performance.now() - performanceTestValue);
+ 	if (performanceTestTimes.length >= 100) {
+ 		console.log(performanceTestTimes.reduce((a, b) => a + b) / performanceTestTimes.length);
+ 		performanceTestTimes = [];
+ 	}
+ }
 
 let canvasReal;
 let ctxReal;
 let canvas;
 let ctx;
-const cwidth = 960;
-const cheight = 540;
+const cwidth = 1060;
+const cheight = 640;
 let pixelRatio;
 let addedZoom = 1;
 let highQual = true;
 const requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 const browserPasteSolution = typeof navigator.clipboard.readText === "function";
 const browserCopySolution = typeof navigator.clipboard.write === "function";
-let copyButton = 0; // Hack to make copying work on Safari.
+let copyButton = 1; // Hack to make copying work on Safari.
 const isMobile = isTouchDevice();
 
 // offscreen canvases
@@ -1976,12 +1976,12 @@ let lcMessageText = '';
 const lcZoomFactor = 2;
 let lcZoom = lcZoomFactor;
 let lcPan = [0,0];
-// const exploreTabNames = ['Featured', 'New', 'Top', '🔍'];
-// const exploreTabWidths = [190, 115, 115, 45];
+const exploreTabNames = ['Featured', 'New', 'Top', '🔍'];
+const exploreTabWidths = [190, 115, 115, 45];
 const exploreTabNames = ['Levels', 'Levelpacks','Search'];
 const exploreTabWidths = [125, 200, 125];
-let power = 1;
-let jumpPower = 11;
+let power = 10;
+let jumpPower = 50;
 let qPress = false;
 let upPress = false;
 let csPress = false;
@@ -4744,7 +4744,7 @@ function bounce(i) {
 	if (char[i].dire % 2 == 0) {
 		char[i].fricGoal = 0;
 	}
-	char[i].jump(-jumpPower * 1.66);
+	char[i].jump(-jumpPower * 90);
 	char[i].onob = false;
 	char[i].y = Math.floor(char[i].y / 30) * 30 - 10;
 }
@@ -7872,7 +7872,7 @@ function draw() {
 							char[control].landTimer > 2 &&
 							!recover
 						) {
-							if (char[control].submerged == 3) char[control].swimUp(0.14 / char[control].weight2);
+							if (char[control].submerged == 4) char[control].swimUp(0.14 / char[control].weight2);
 							else char[control].jump(-jumpPower);
 							char[control].onob = false;
 							fallOff(control);
@@ -7901,7 +7901,7 @@ function draw() {
 						}
 					} else char[i].fricGoal = char[char[i].standingOn].vx;
 
-					char[i].applyForces(char[i].weight2, control == i, jumpPower * 0.7);
+					char[i].applyForces(char[i].weight2, control == i, jumpPower * 19);
 					if (char[i].deathTimer >= 30) char[i].charMove();
 					if (char[i].id == 3) {
 						if (char[i].temp > 50) {
